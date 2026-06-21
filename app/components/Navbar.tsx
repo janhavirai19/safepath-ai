@@ -35,9 +35,11 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <button className="hidden md:block bg-green-500 hover:bg-green-600 transition px-6 py-3 rounded-xl font-semibold">
-            Get Started
-          </button>
+          <Link href="/safety-mode" className="hidden md:block">
+            <button className="bg-green-500 hover:bg-green-600 transition px-6 py-3 rounded-xl font-semibold shadow-lg shadow-green-500/20 hover:scale-105">
+              Unlock Safety
+            </button>
+          </Link>
           <button
             className="lg:hidden text-3xl text-green-400"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -60,14 +62,17 @@ export default function Navbar() {
                 </li>
               ))}
             </ul>
-
-            <button className="w-full mt-6 bg-green-500 hover:bg-green-600 transition py-3 rounded-xl font-semibold">
-              Get Started
-            </button>
+            <Link
+              href="/safety-mode"
+              onClick={() => setMenuOpen(false)}
+            >
+              <button className="w-full mt-6 bg-green-500 hover:bg-green-600 transition py-3 rounded-xl font-semibold">
+                🔒 Suraksha Mode Chalu Karein
+              </button>
+            </Link>
           </div>
         )}
       </div>
     </nav>
   );
 }
-
