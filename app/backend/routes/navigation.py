@@ -1,7 +1,5 @@
 from fastapi import APIRouter
-
 router = APIRouter()
-
 @router.get("/route")
 def route():
     return {
