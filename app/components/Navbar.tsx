@@ -3,10 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
-
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-
   const navItems = [
     { name: "Home", href: "#home" },
     { name: "Features", href: "#features" },

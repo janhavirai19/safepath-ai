@@ -24,8 +24,6 @@ export default function MapCard() {
           sm:bg-[size:40px_40px]
         "
       />
-
-    
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,136,0.12),transparent_70%)]" />
       <div
         className="
