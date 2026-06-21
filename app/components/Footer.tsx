@@ -12,7 +12,7 @@ export default function Footer() {
     <footer className="bg-[#081018] border-t border-gray-800 mt-20">
       <div className="max-w-7xl mx-auto px-6 py-14">
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
           <div>
             <h2 className="text-3xl font-bold text-emerald-400">
               SafePath AI
@@ -111,16 +111,37 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div className="border-t border-gray-800 mt-12 pt-8">
+  <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
 
-          <p className="text-gray-500 text-sm text-center">
-            © 2026 SafePath AI. All rights reserved.
-          </p>
+    <p className="text-gray-500 text-sm text-center lg:text-left">
+      © 2026 SafePath AI. All rights reserved.
+    </p>
 
-          <p className="text-gray-500 text-sm text-center">
-            Built with ❤️ for safer journeys.
-          </p>
-        </div>
+    <div className="text-center">
+      <p className="text-gray-500 text-xs sm:text-sm uppercase tracking-[0.25em]">
+        Crafted with passion, innovation, and purpose.
+      </p>
+
+      <div className="mt-3 inline-flex items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-5 py-3 shadow-lg shadow-emerald-500/10">
+        <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent tracking-wider">
+          Janhavi Rai
+        </h2>
+      </div>
+      <p className="mt-2 text-xs text-gray-500">
+        •  Mind Behind SafePath AI
+      </p>
+    </div>
+
+  </div>
+</div>       
+
+
+
+
+
+
+
       </div>
     </footer>
   );
