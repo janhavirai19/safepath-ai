@@ -129,7 +129,7 @@ export default function Footer() {
         </h2>
       </div>
       <p className="mt-2 text-xs text-gray-500">
-        •  Mind Behind SafePath AI
+        •  Mind Behind SafePath AI - janhavirai932@gmail.com
       </p>
     </div>
 
