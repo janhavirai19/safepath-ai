@@ -65,7 +65,7 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
             >
               <button className="w-full mt-6 bg-green-500 hover:bg-green-600 transition py-3 rounded-xl font-semibold">
-                🔒 Suraksha Mode Chalu Karein
+                  Unlock Safety
               </button>
             </Link>
           </div>
