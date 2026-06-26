@@ -1,7 +1,22 @@
+# from fastapi import APIRouter
+# router = APIRouter()
+# @router.post("/sos")
+# def sos():
+#     return {
+#         "message": "SOS Alert Sent"
+#     }
+
+
+
 from fastapi import APIRouter
+
 router = APIRouter()
+
 @router.post("/sos")
-def sos():
+def sos(data: dict):
     return {
-        "message": "SOS Alert Sent"
+        "message":
+            "Emergency alert sent successfully.",
+        "location":
+            data
     }

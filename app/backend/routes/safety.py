@@ -1,8 +1,15 @@
 from fastapi import APIRouter
+
 router = APIRouter()
-@router.get("/score")
-def get_score():
+
+@router.post("/score")
+def safety_score(data: dict):
+    score = 85
+
+    if data.get("hour", 12) >= 22:
+        score -= 20
+
     return {
-        "score": 91,
-        "status": "Safe"
+        "score": score,
+        "status": "Safe" if score > 70 else "Risk"
     }
