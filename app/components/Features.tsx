@@ -176,7 +176,6 @@ export default function Features() {
           </div>
         ))}
       </div>
-
     
       {selectedFeature && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-5">

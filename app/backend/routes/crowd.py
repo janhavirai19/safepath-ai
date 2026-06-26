@@ -1,8 +1,6 @@
 from fastapi import APIRouter
 import random
-
 router = APIRouter()
-
 @router.get("/predict")
 def predict():
     crowd = random.randint(10, 100)
