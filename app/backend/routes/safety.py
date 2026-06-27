@@ -1,8 +1,6 @@
 from fastapi import APIRouter
 from datetime import datetime
-
 router = APIRouter()
-
 @router.post("/score")
 def safety_score(data: dict):
     score = 100
@@ -12,7 +10,6 @@ def safety_score(data: dict):
     weather = "clear"
     traffic = "medium"
     crowd = "low"
-
     if weather == "rain":
         score -= 10
     elif weather == "storm":
