@@ -112,7 +112,6 @@ const handleSafetyScore = () => {
       button: "Call Now",
     },
   ];
-
   const handleAction = (title: string) => {
   switch (title) {
     case "AI Safety Score":
@@ -140,7 +139,7 @@ const handleSafetyScore = () => {
       id="features"
       className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-20"
     >
-  
+
       <div className="text-center mb-16">
         <p className="text-green-400 uppercase tracking-[4px] text-sm mb-4">
           Features
@@ -163,7 +162,10 @@ const handleSafetyScore = () => {
         {features.map((feature, index) => (
           <div
             key={index}
-            onClick={() => setSelectedFeature(feature)}
+            onClick={() => {
+  setSelectedFeature(feature);
+  setSafetyResult(null);
+}}
             className="
               cursor-pointer
               group
