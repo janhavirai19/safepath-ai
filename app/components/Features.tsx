@@ -21,6 +21,41 @@ type Feature = {
 export default function Features() {
   const [selectedFeature, setSelectedFeature] =
     useState<Feature | null>(null);
+
+  const [safetyResult, setSafetyResult] = useState<any>(null);
+const handleSafetyScore = () => {
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      try {
+        const { latitude, longitude } = position.coords;
+
+        const res = await fetch(
+          "http://127.0.0.1:8000/safety/score",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              lat: latitude,
+              lng: longitude,
+            }),
+          }
+        );
+
+        const data = await res.json();
+        setSafetyResult(data);
+      } catch (err) {
+        console.error(err);
+        alert("Unable to fetch safety score.");
+      }
+    },
+    () => {
+      alert("Please allow location access.");
+    }
+  );
+};
+
   const features: Feature[] = [
     {
       icon: <FaShieldAlt size={35} />,
@@ -79,24 +114,27 @@ export default function Features() {
   ];
 
   const handleAction = (title: string) => {
-    switch (title) {
-      case "SOS Emergency":
-        window.open("tel:112");
-        break;
+  switch (title) {
+    case "AI Safety Score":
+      handleSafetyScore();
+      break;
 
-      case "Emergency Contacts":
-        window.open("tel:100");
-        break;
+    case "SOS Emergency":
+      window.open("tel:112");
+      break;
 
-      case "Smart Navigation":
-        window.open("https://maps.google.com", "_blank");
-        break;
+    case "Emergency Contacts":
+      window.open("tel:100");
+      break;
 
-      default:
-        alert(`${title} feature will be integrated with backend APIs.`);
-    }
-  };
+    case "Smart Navigation":
+      window.open("https://maps.google.com", "_blank");
+      break;
 
+    default:
+      alert(`${title} feature will be integrated with backend APIs.`);
+  }
+};
   return (
     <section
       id="features"
@@ -173,7 +211,7 @@ export default function Features() {
           </div>
         ))}
       </div>
-    
+  
       {selectedFeature && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-5">
           <div className="bg-[#08131f] border border-gray-800 rounded-3xl w-full max-w-lg p-8 relative">
@@ -199,6 +237,18 @@ export default function Features() {
               {selectedFeature.details}
             </p>
 
+{safetyResult &&
+  selectedFeature.title === "AI Safety Score" && (
+    <div className="mt-6 rounded-2xl border border-green-500/40 bg-green-500/10 p-5">
+      <h3 className="text-3xl font-bold text-green-400">
+        Safety Score: {safetyResult.score}
+      </h3>
+
+      <p className="text-gray-300 mt-2">
+        Status: {safetyResult.status}
+      </p>
+    </div>
+)}
             <div className="mt-8 flex flex-wrap gap-4">
               <button
                 onClick={() =>
