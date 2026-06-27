@@ -100,7 +100,7 @@ export default function Footer() {
 
               <div className="flex gap-3 items-start">
                 <FaEnvelope className="text-emerald-400 mt-1" />
-                <p>support@safepathai.com</p>
+                <p>janhavirai932@gmail.com</p>
               </div>
 
               <div className="flex gap-3 items-start">
