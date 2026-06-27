@@ -1,5 +1,4 @@
 "use client"; 
-
 import React, { useState } from "react";
 import {
   FaShieldAlt,
@@ -19,11 +18,9 @@ type Feature = {
   color: string;
   button: string;
 };
-
 export default function Features() {
   const [selectedFeature, setSelectedFeature] =
     useState<Feature | null>(null);
-
   const features: Feature[] = [
     {
       icon: <FaShieldAlt size={35} />,
