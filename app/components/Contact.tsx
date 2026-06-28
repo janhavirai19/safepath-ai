@@ -22,7 +22,7 @@ export default function Contact() {
         form.current,
         "REMzMYCL7S2589wDp"
       );
-      alert("Message sent successfully! 🚀");
+      alert("Message sent successfully! ");
       form.current.reset();
     } catch (error: any) {
       console.error("EmailJS Error:", error);
@@ -41,7 +41,6 @@ export default function Contact() {
     className="max-w-5xl mx-auto px-5 py-20"
   >
     <div className="bg-[#08131f] border border-gray-800 rounded-[30px] p-8 md:p-10 shadow-xl">
-      {/* Heading */}
       <div className="text-center mb-10">
         <h2 className="text-4xl font-bold text-green-400">
           Get In Touch
@@ -51,7 +50,6 @@ export default function Contact() {
         </p>
       </div>
 
-      {/* Contact Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
         <div className="bg-[#0d1625] p-5 rounded-2xl border border-gray-800 text-center hover:border-green-400 transition-all duration-300">
           <FaEnvelope className="text-green-400 text-2xl mx-auto mb-3" />
@@ -62,7 +60,6 @@ export default function Contact() {
             janhavirai932@gmail.com
           </p>
         </div>
-
         <div className="bg-[#0d1625] p-5 rounded-2xl border border-gray-800 text-center hover:border-green-400 transition-all duration-300">
           <FaPhoneAlt className="text-green-400 text-2xl mx-auto mb-3" />
           <h4 className="text-white font-semibold">
@@ -72,7 +69,6 @@ export default function Contact() {
             +91 9800000000
           </p>
         </div>
-
         <div className="bg-[#0d1625] p-5 rounded-2xl border border-gray-800 text-center hover:border-green-400 transition-all duration-300">
           <FaMapMarkerAlt className="text-green-400 text-2xl mx-auto mb-3" />
           <h4 className="text-white font-semibold">
@@ -83,8 +79,6 @@ export default function Contact() {
           </p>
         </div>
       </div>
-
-      {/* Form */}
       <form
         ref={form}
         onSubmit={sendEmail}
@@ -98,7 +92,6 @@ export default function Contact() {
             required
             className="bg-[#0d1625] p-4 rounded-xl border border-gray-700 text-white outline-none focus:border-green-400 transition"
           />
-
           <input
             type="email"
             name="user_email"
@@ -107,7 +100,6 @@ export default function Contact() {
             className="bg-[#0d1625] p-4 rounded-xl border border-gray-700 text-white outline-none focus:border-green-400 transition"
           />
         </div>
-
         <input
           type="text"
           name="subject"
@@ -115,7 +107,6 @@ export default function Contact() {
           required
           className="w-full bg-[#0d1625] p-4 rounded-xl border border-gray-700 text-white outline-none focus:border-green-400 transition"
         />
-
         <textarea
           rows={5}
           name="message"
@@ -123,7 +114,6 @@ export default function Contact() {
           required
           className="w-full bg-[#0d1625] p-4 rounded-xl border border-gray-700 text-white outline-none resize-none focus:border-green-400 transition"
         />
-
         <button
           type="submit"
           disabled={loading}
