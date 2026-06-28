@@ -201,14 +201,12 @@ export default function Features() {
               rounded-3xl bg-[#08131f] border border-gray-800
               p-7 sm:p-8 transition-all duration-500
               hover:border-green-500/50 hover:-translate-y-3
-            "
-          >
+            " >
             <div
               className="
                 absolute -top-10 -right-10 w-28 h-28 rounded-full
                 bg-green-500/10 blur-3xl group-hover:bg-green-500/20 transition
-              "
-            />
+              " />
             <div className={`${feature.color} mb-6`}>{feature.icon}</div>
             <h3 className={`text-2xl font-bold ${feature.color}`}>
               {feature.title}
