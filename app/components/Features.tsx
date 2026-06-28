@@ -9,7 +9,6 @@ import {
   FaPhoneAlt,
   FaTimes,
 } from "react-icons/fa";
-
 type Feature = {
   icon: React.ReactNode;
   title: string;
@@ -45,6 +44,43 @@ const handleSafetyScore = () => {
       } catch (err) {
         console.error(err);
         alert("Unable to fetch safety score.");
+      }
+    },
+    () => {
+      alert("Please allow location access.");
+    }
+  );
+};
+const [crowdResult, setCrowdResult] = useState<any>(null);
+const handleCrowdPrediction = () => {
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      try {
+        const { latitude, longitude } = position.coords;
+
+        const res = await fetch(
+          "http://127.0.0.1:8000/crowd/predict",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              lat: latitude,
+              lng: longitude,
+            }),
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch crowd data");
+        }
+
+        const data = await res.json();
+        setCrowdResult(data);
+      } catch (err) {
+        console.error(err);
+        alert("Unable to fetch crowd prediction.");
       }
     },
     () => {
@@ -108,20 +144,28 @@ const handleSafetyScore = () => {
       button: "Call Now",
     },
   ];
-  const handleAction = (title: string) => {
+const handleAction = (title: string) => {
   switch (title) {
     case "AI Safety Score":
       handleSafetyScore();
       break;
+
+    case "Crowd Prediction":
+      handleCrowdPrediction();
+      break;
+
     case "SOS Emergency":
       window.open("tel:112");
       break;
+
     case "Emergency Contacts":
       window.open("tel:100");
       break;
+
     case "Smart Navigation":
       window.open("https://maps.google.com", "_blank");
       break;
+
     default:
       alert(`${title} feature will be integrated with backend APIs.`);
   }
@@ -209,17 +253,14 @@ const handleSafetyScore = () => {
             <div className={`${selectedFeature.color} mb-5`}>
               {selectedFeature.icon}
             </div>
-
             <h2
               className={`text-3xl font-bold ${selectedFeature.color}`}
             >
               {selectedFeature.title}
             </h2>
-
             <p className="text-gray-400 mt-5 leading-7">
               {selectedFeature.details}
             </p>
-
 {safetyResult &&
   selectedFeature.title === "AI Safety Score" && (
     <div className="mt-6 rounded-2xl border border-green-500/40 bg-green-500/10 p-5">
@@ -229,6 +270,21 @@ const handleSafetyScore = () => {
 
       <p className="text-gray-300 mt-2">
         Status: {safetyResult.status}
+      </p>
+    </div>
+)}
+{crowdResult &&
+  selectedFeature.title === "Crowd Prediction" && (
+    <div className="mt-6 rounded-2xl border border-yellow-500/40 bg-yellow-500/10 p-5">
+      <h3 className="text-3xl font-bold text-yellow-400">
+        Crowd Level: {crowdResult.crowd}
+      </h3>
+
+      <p className="text-gray-300 mt-2">
+        Risk Score: {crowdResult.risk}%
+      </p>
+      <p className="text-gray-400 mt-2">
+        {crowdResult.message}
       </p>
     </div>
 )}
