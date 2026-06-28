@@ -21,14 +21,12 @@ type Feature = {
 export default function Features() {
   const [selectedFeature, setSelectedFeature] =
     useState<Feature | null>(null);
-
   const [safetyResult, setSafetyResult] = useState<any>(null);
 const handleSafetyScore = () => {
   navigator.geolocation.getCurrentPosition(
     async (position) => {
       try {
         const { latitude, longitude } = position.coords;
-
         const res = await fetch(
           "http://127.0.0.1:8000/safety/score",
           {
@@ -42,7 +40,6 @@ const handleSafetyScore = () => {
             }),
           }
         );
-
         const data = await res.json();
         setSafetyResult(data);
       } catch (err) {
@@ -55,7 +52,6 @@ const handleSafetyScore = () => {
     }
   );
 };
-
   const features: Feature[] = [
     {
       icon: <FaShieldAlt size={35} />,
@@ -117,19 +113,15 @@ const handleSafetyScore = () => {
     case "AI Safety Score":
       handleSafetyScore();
       break;
-
     case "SOS Emergency":
       window.open("tel:112");
       break;
-
     case "Emergency Contacts":
       window.open("tel:100");
       break;
-
     case "Smart Navigation":
       window.open("https://maps.google.com", "_blank");
       break;
-
     default:
       alert(`${title} feature will be integrated with backend APIs.`);
   }
@@ -139,25 +131,21 @@ const handleSafetyScore = () => {
       id="features"
       className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-20"
     >
-
       <div className="text-center mb-16">
         <p className="text-green-400 uppercase tracking-[4px] text-sm mb-4">
           Features
         </p>
-
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
           Smart Features For
           <span className="text-green-400">
             {" "}Safer Journeys
           </span>
         </h2>
-
         <p className="text-gray-400 mt-5 max-w-2xl mx-auto">
           Powerful AI-driven tools that help you navigate safely,
           avoid risks, and stay connected during emergencies.
         </p>
       </div>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {features.map((feature, index) => (
           <div
@@ -194,37 +182,30 @@ const handleSafetyScore = () => {
                 transition
               "
             />
-
             <div className={`${feature.color} mb-6`}>
               {feature.icon}
             </div>
-
             <h3 className={`text-2xl font-bold ${feature.color}`}>
               {feature.title}
             </h3>
-
             <p className="mt-4 text-gray-400 leading-7">
               {feature.desc}
             </p>
-
             <div className="mt-8 text-green-400 opacity-0 group-hover:opacity-100 transition">
               Open Feature →
             </div>
           </div>
         ))}
       </div>
-  
       {selectedFeature && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-5">
           <div className="bg-[#08131f] border border-gray-800 rounded-3xl w-full max-w-lg p-8 relative">
-
             <button
               onClick={() => setSelectedFeature(null)}
               className="absolute right-5 top-5 text-gray-400 hover:text-white"
             >
               <FaTimes size={22} />
             </button>
-
             <div className={`${selectedFeature.color} mb-5`}>
               {selectedFeature.icon}
             </div>
