@@ -5,7 +5,6 @@ import About from "./components/About";
 import Download from "./components/Download";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-
 export default function Home() {
   return (
     <main className="bg-[#050816] text-white min-h-screen overflow-x-hidden">

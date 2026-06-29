@@ -4,11 +4,9 @@ body{
   background:#030312;
   color:white;
 }
-
 .neon{
   box-shadow:0 0 20px rgba(0,255,140,.4);
 }
-
 .card{
   background:rgba(15,15,35,.7);
   border:1px solid rgba(0,255,140,.2);
@@ -19,8 +17,6 @@ body{
 html {
   scroll-behavior: smooth;
 }
-
-
 @keyframes float {
   0% {
     transform: translateY(0px);
@@ -32,11 +28,9 @@ html {
     transform: translateY(0px);
   }
 }
-
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
-
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -47,7 +41,6 @@ html {
     transform: translateY(0);
   }
 }
-
 .animate-fade-up {
   animation: fadeUp 1s ease;
 }

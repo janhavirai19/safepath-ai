@@ -7,14 +7,14 @@ export default function SafetyMode() {
   const [status, setStatus] = useState(""); 
   const activateSafety = () => {
     setLoading(true);
-    setStatus("🔍 Scanning your surroundings...");
+    setStatus(" Scanning your surroundings...");
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         console.log("Latitude:", latitude);
         console.log("Longitude:", longitude);
-        setStatus("📍 Verifying Location...");
+        setStatus("Verifying Location...");
         try {
           localStorage.setItem(
             "userLocation",
@@ -23,7 +23,7 @@ export default function SafetyMode() {
               lng: longitude,
             })
           );
-          setStatus("🛡️ Starting AI Protection...");
+          setStatus(" Starting AI Protection...");
           const res = await fetch(
             "http://127.0.0.1:8000/safety/analyze",
             {
@@ -42,13 +42,13 @@ export default function SafetyMode() {
           }
           const data = await res.json();
           console.log("AI Response:", data);
-          setStatus("🛡️ Protection Active");
+          setStatus(" Protection Active");
           setTimeout(() => {
             router.push("/dashboard");
           }, 3000);
         } catch (error) {
           console.log("Backend Error:", error);
-          setStatus("⚠️ Backend Offline. Opening Dashboard...");
+          setStatus(" Opening Dashboard...");
 
           setTimeout(() => {
             router.push("/dashboard");
