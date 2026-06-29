@@ -59,7 +59,6 @@ export default function Features() {
       () => alert("Please allow location access.")
     );
   };
-
   const handleCrowdPrediction = () => {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
@@ -111,7 +110,7 @@ export default function Features() {
     switch (type) {
       case "danger":
         setGuidance(
-          ` Stay calm and do not panic.\n Share your live location immediately with someone you trust.\n👥 Move towards a crowded or well-lit place.\n Call emergency services (112) or a trusted contact right away.`
+          ` Stay calm and do not panic.\n Share your live location immediately with someone you trust.\n Move towards a crowded or well-lit place.\n Call emergency services (112) or a trusted contact right away.`
         );
         break;
       case "followed":
@@ -126,14 +125,13 @@ export default function Features() {
         break;
       case "night":
         setGuidance(
-          `Stick to well-lit, busy roads and avoid shortcuts.\nAvoid isolated areas, lanes, or parks.\n📱 Keep your phone charged and volume on.\n Share your live location with family or a trusted friend before you leave.`
+          `Stick to well-lit, busy roads and avoid shortcuts.\nAvoid isolated areas, lanes, or parks.\n Keep your phone charged and volume on.\n Share your live location with family or a trusted friend before you leave.`
         );
         break;
       default:
         setGuidance("");
     }
   };
-
   const handleAction = (title: string) => {
     switch (title) {
       case "AI Safety Score":
@@ -286,7 +284,7 @@ export default function Features() {
             )}
             {sosResult && selectedFeature.title === "SOS Emergency" && (
               <div className="mt-6 rounded-2xl border border-red-500/40 bg-red-500/10 p-5">
-                <h3 className="text-2xl font-bold text-red-400">🚨 SOS Activated</h3>
+                <h3 className="text-2xl font-bold text-red-400"> SOS Activated</h3>
                 <p className="text-gray-300 mt-2">{sosResult.message}</p>
                 <p className="text-gray-400 mt-2">Location shared successfully.</p>
               </div>
@@ -338,7 +336,7 @@ export default function Features() {
                 {guidance && (
                   <div className="mt-5 bg-[#101b29] border border-purple-500/30 rounded-2xl p-5">
                     <p className="text-purple-300 font-semibold mb-3 text-sm uppercase tracking-wider">
-                      🛡️ Safety Guidance
+                      Safety Guidance
                     </p>
                     <div className="space-y-2">
                       {guidance.split("\n").filter(Boolean).map((line, i) => (
