@@ -39,7 +39,6 @@ export default function MapCard() {
           animate-pulse
         "
       />
-
       <div
         className="
           absolute
@@ -68,7 +67,6 @@ export default function MapCard() {
             </feMerge>
           </filter>
         </defs>
-
         <path
           d="M100 400 C250 360 280 280 400 260 C550 230 600 120 700 90"
           stroke="#00ff88"
@@ -98,7 +96,6 @@ export default function MapCard() {
           📍 Destination
         </p>
       </div>
-
       <div
         className="
           absolute

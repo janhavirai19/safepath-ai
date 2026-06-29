@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
 export default function SafetyMode() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -13,10 +12,8 @@ export default function SafetyMode() {
       async (position) => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-
         console.log("Latitude:", latitude);
         console.log("Longitude:", longitude);
-
         setStatus("📍 Verifying Location...");
         try {
           localStorage.setItem(
@@ -26,9 +23,7 @@ export default function SafetyMode() {
               lng: longitude,
             })
           );
-
           setStatus("🛡️ Starting AI Protection...");
-
           const res = await fetch(
             "http://127.0.0.1:8000/safety/analyze",
             {
@@ -42,16 +37,12 @@ export default function SafetyMode() {
               }),
             }
           );
-
           if (!res.ok) {
             throw new Error("Backend request failed");
           }
-
           const data = await res.json();
           console.log("AI Response:", data);
-
           setStatus("🛡️ Protection Active");
-
           setTimeout(() => {
             router.push("/dashboard");
           }, 3000);
@@ -100,7 +91,6 @@ export default function SafetyMode() {
             🔒 Activate Protection
           </button>
         )}
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-14">
           <div className="rounded-2xl border border-[#1f2937] bg-[#111827] p-6 hover:border-emerald-500 transition-all duration-300">
             <div className="text-4xl">📍</div>
@@ -113,7 +103,6 @@ export default function SafetyMode() {
           </div>
           <div className="rounded-2xl border border-[#1f2937] bg-[#111827] p-6 hover:border-emerald-500 transition-all duration-300">
             <div className="text-4xl">🚨</div>
-
             <h3 className="text-emerald-400 font-semibold text-lg mt-4">
               Emergency SOS
             </h3>
@@ -123,11 +112,9 @@ export default function SafetyMode() {
           </div>
           <div className="rounded-2xl border border-[#1f2937] bg-[#111827] p-6 hover:border-emerald-500 transition-all duration-300">
             <div className="text-4xl">🛡️</div>
-
             <h3 className="text-emerald-400 font-semibold text-lg mt-4">
               AI Monitoring
             </h3>
-
             <p className="text-gray-400 text-sm mt-2">
               Intelligent safety analysis and proactive protection.
             </p>

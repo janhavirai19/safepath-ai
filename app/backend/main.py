@@ -7,13 +7,11 @@ from routes import (
     assistant,
     emergency
 )
-
 app = FastAPI(
     title="SafePath AI",
     description="AI-powered safety & navigation system",
     version="1.0.0"
 )
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -29,25 +27,21 @@ app.include_router(
     prefix="/safety",
     tags=["Safety"]
 )
-
 app.include_router(
     crowd.router,
     prefix="/crowd",
     tags=["Crowd"]
 )
-
 app.include_router(
     navigation.router,
     prefix="/navigation",
     tags=["Navigation"]
 )
-
 app.include_router(
     assistant.router,
     prefix="/assistant",
     tags=["Assistant"]
 )
-
 app.include_router(
     emergency.router,
     prefix="/emergency",
