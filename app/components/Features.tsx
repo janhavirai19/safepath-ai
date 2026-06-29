@@ -8,6 +8,8 @@ import {
   FaRobot,
   FaPhoneAlt,
   FaTimes,
+  FaEraser,
+  FaPhone,
 } from "react-icons/fa";
 type Feature = {
   icon: React.ReactNode;
@@ -22,13 +24,21 @@ export default function Features() {
   const [safetyResult, setSafetyResult] = useState<any>(null);
   const [crowdResult, setCrowdResult] = useState<any>(null);
   const [sosResult, setSosResult] = useState<any>(null);
+  const [showPlaces, setShowPlaces] = useState(false);
+  const [guidance, setGuidance] = useState("");
   const openFeature = (feature: Feature) => {
-  setSelectedFeature(feature);
-  setSafetyResult(null);
-  setCrowdResult(null);
-  setSosResult(null);
-  setShowPlaces(false); 
-};
+    setSelectedFeature(feature);
+    setSafetyResult(null);
+    setCrowdResult(null);
+    setSosResult(null);
+    setShowPlaces(false);
+    setGuidance("");
+  };
+  const closeModal = () => {
+    setSelectedFeature(null);
+    setShowPlaces(false);
+    setGuidance("");
+  };
   const handleSafetyScore = () => {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
@@ -49,6 +59,7 @@ export default function Features() {
       () => alert("Please allow location access.")
     );
   };
+
   const handleCrowdPrediction = () => {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
@@ -96,7 +107,33 @@ export default function Features() {
       () => alert("Please allow location access.")
     );
   };
-const [showPlaces, setShowPlaces] = useState(false);
+  const getEmergencyGuidance = (type: string) => {
+    switch (type) {
+      case "danger":
+        setGuidance(
+          ` Stay calm and do not panic.\n Share your live location immediately with someone you trust.\n👥 Move towards a crowded or well-lit place.\n Call emergency services (112) or a trusted contact right away.`
+        );
+        break;
+      case "followed":
+        setGuidance(
+          ` Do not go home directly — you may lead them to your address.\n Enter a nearby shop, restaurant, or any public place.\n Call someone you trust and stay on the line.\n Use the SOS button if the situation escalates.`
+        );
+        break;
+      case "cab":
+        setGuidance(
+          `Share your trip details and live location with a trusted contact.\nKeep your GPS on throughout the journey.\n Sit near the door and stay alert — avoid sleeping.\n If you feel unsafe, ask to stop at a public place and exit.`
+        );
+        break;
+      case "night":
+        setGuidance(
+          `Stick to well-lit, busy roads and avoid shortcuts.\nAvoid isolated areas, lanes, or parks.\n📱 Keep your phone charged and volume on.\n Share your live location with family or a trusted friend before you leave.`
+        );
+        break;
+      default:
+        setGuidance("");
+    }
+  };
+
   const handleAction = (title: string) => {
     switch (title) {
       case "AI Safety Score":
@@ -111,9 +148,12 @@ const [showPlaces, setShowPlaces] = useState(false);
       case "Emergency Contacts":
         window.open("tel:100");
         break;
-     case "Nearby Safe Places":
-  setShowPlaces(true);
-  break;
+      case "Nearby Safe Places":
+        setShowPlaces(true);
+        break;
+      case "AI Assistant":
+        window.open("tel:112");
+        break;
       default:
         alert(`${title} feature will be integrated with backend APIs.`);
     }
@@ -145,23 +185,23 @@ const [showPlaces, setShowPlaces] = useState(false);
       color: "text-yellow-400",
       button: "View Crowd",
     },
- {
-  icon: <FaMapMarkedAlt size={35} />,
-  title: "Nearby Safe Places",
-  desc: "Find nearby police stations, hospitals, petrol pumps and pharmacies instantly.",
-  details:
-    "Locate essential safe places around you during emergencies with one tap access.",
-  color: "text-cyan-400",
-  button: "Find Places",
-},
+    {
+      icon: <FaMapMarkedAlt size={35} />,
+      title: "Nearby Safe Places",
+      desc: "Find nearby police stations, hospitals, petrol pumps and pharmacies instantly.",
+      details:
+        "Locate essential safe places around you during emergencies with one tap access.",
+      color: "text-cyan-400",
+      button: "Find Places",
+    },
     {
       icon: <FaRobot size={35} />,
       title: "AI Assistant",
       desc: "Get instant safety suggestions and travel guidance.",
       details:
-        "Chat with AI and receive safety recommendations and travel guidance.",
+        "Select a situation below and get instant step-by-step safety guidance powered by AI.",
       color: "text-purple-400",
-      button: "Start Chat",
+      button: "Call 112",
     },
     {
       icon: <FaPhoneAlt size={35} />,
@@ -196,17 +236,8 @@ const [showPlaces, setShowPlaces] = useState(false);
           <div
             key={index}
             onClick={() => openFeature(feature)}
-            className="
-              cursor-pointer group relative overflow-hidden
-              rounded-3xl bg-[#08131f] border border-gray-800
-              p-7 sm:p-8 transition-all duration-500
-              hover:border-green-500/50 hover:-translate-y-3
-            " >
-            <div
-              className="
-                absolute -top-10 -right-10 w-28 h-28 rounded-full
-                bg-green-500/10 blur-3xl group-hover:bg-green-500/20 transition
-              " />
+            className="cursor-pointer group relative overflow-hidden rounded-3xl bg-[#08131f] border border-gray-800 p-7 sm:p-8 transition-all duration-500 hover:border-green-500/50 hover:-translate-y-3"
+          ><div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-green-500/10 blur-3xl group-hover:bg-green-500/20 transition" />
             <div className={`${feature.color} mb-6`}>{feature.icon}</div>
             <h3 className={`text-2xl font-bold ${feature.color}`}>
               {feature.title}
@@ -219,27 +250,21 @@ const [showPlaces, setShowPlaces] = useState(false);
         ))}
       </div>
       {selectedFeature && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-5">
-<div
-  className="
-    bg-[#08131f] border border-gray-800 rounded-3xl
-    w-full max-w-xl
-    max-h-[90vh] overflow-y-auto
-    p-5 sm:p-6 md:p-8
-    relative
-  ">            <button
-              onClick={() => setSelectedFeature(null)}
-              className="absolute right-5 top-5 text-gray-400 hover:text-white"
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#08131f] border border-gray-800 rounded-3xl w-full max-w-xl max-h-[90vh] overflow-y-auto p-5 sm:p-7 relative">
+            <button
+              onClick={closeModal}
+              className="absolute right-5 top-5 text-gray-400 hover:text-white transition"
             >
               <FaTimes size={22} />
             </button>
             <div className={`${selectedFeature.color} mb-5`}>
               {selectedFeature.icon}
             </div>
-            <h2 className={`text-3xl font-bold ${selectedFeature.color}`}>
+            <h2 className={`text-2xl sm:text-3xl font-bold ${selectedFeature.color}`}>
               {selectedFeature.title}
             </h2>
-            <p className="text-gray-400 mt-5 leading-7">
+            <p className="text-gray-400 mt-4 leading-7">
               {selectedFeature.details}
             </p>
             {safetyResult && selectedFeature.title === "AI Safety Score" && (
@@ -247,9 +272,7 @@ const [showPlaces, setShowPlaces] = useState(false);
                 <h3 className="text-3xl font-bold text-green-400">
                   Safety Score: {safetyResult.score}
                 </h3>
-                <p className="text-gray-300 mt-2">
-                  Status: {safetyResult.status}
-                </p>
+                <p className="text-gray-300 mt-2">Status: {safetyResult.status}</p>
               </div>
             )}
             {crowdResult && selectedFeature.title === "Crowd Prediction" && (
@@ -257,83 +280,120 @@ const [showPlaces, setShowPlaces] = useState(false);
                 <h3 className="text-3xl font-bold text-yellow-400">
                   Crowd Level: {crowdResult.crowd}
                 </h3>
-                <p className="text-gray-300 mt-2">
-                  Risk Score: {crowdResult.risk}%
-                </p>
+                <p className="text-gray-300 mt-2">Risk Score: {crowdResult.risk}%</p>
                 <p className="text-gray-400 mt-2">{crowdResult.message}</p>
               </div>
             )}
             {sosResult && selectedFeature.title === "SOS Emergency" && (
               <div className="mt-6 rounded-2xl border border-red-500/40 bg-red-500/10 p-5">
-                <h3 className="text-2xl font-bold text-red-400">
-                   SOS Activated
-                </h3>
+                <h3 className="text-2xl font-bold text-red-400">🚨 SOS Activated</h3>
                 <p className="text-gray-300 mt-2">{sosResult.message}</p>
-                <p className="text-gray-400 mt-2">
-                  Location shared successfully.
-                </p>
+                <p className="text-gray-400 mt-2">Location shared successfully.</p>
               </div>
             )}
-{showPlaces &&
-  selectedFeature.title === "Nearby Safe Places" && (
-    <div className="mt-6 grid grid-cols-2 gap-4">
-      <button
-        onClick={() =>
-          window.open(
-            "https://www.google.com/maps/search/police+station+near+me",
-            "_blank"
-          )}
-        className="bg-blue-500/20 border border-blue-500 p-4 rounded-xl"
-      > Police Stations
-      </button>
-      <button
-        onClick={() =>
-          window.open(
-            "https://www.google.com/maps/search/hospital+near+me",
-            "_blank"
-          )}
-        className="bg-red-500/20 border border-red-500 p-4 rounded-xl"
-      > Hospitals
-      </button>
-      <button
-        onClick={() =>
-          window.open(
-            "https://www.google.com/maps/search/petrol+pump+near+me",
-            "_blank"
-          )}
-        className="bg-yellow-500/20 border border-yellow-500 p-4 rounded-xl"
-      >Petrol Pumps
-      </button>
-      <button
-        onClick={() =>
-          window.open(
-            "https://www.google.com/maps/search/pharmacy+near+me",
-            "_blank"
-          )
-        }
-        className="bg-green-500/20 border border-green-500 p-4 rounded-xl"
-      > Pharmacies
-      </button>
-    </div>)}
-            <div className="mt-8 flex flex-wrap gap-4">
+            {showPlaces && selectedFeature.title === "Nearby Safe Places" && (
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                {[
+                  { label: " Police Stations", query: "police+station+near+me", color: "blue" },
+                  { label: " Hospitals", query: "hospital+near+me", color: "red" },
+                  { label: " Petrol Pumps", query: "petrol+pump+near+me", color: "yellow" },
+                  { label: " Pharmacies", query: "pharmacy+near+me", color: "green" },
+                ].map(({ label, query, color }) => (
+                  <button
+                    key={query}
+                    onClick={() =>
+                      window.open(
+                        `https://www.google.com/maps/search/${query}`,
+                        "_blank"
+                      )
+                    }
+                    className={`bg-${color}-500/20 border border-${color}-500 p-4 rounded-xl text-sm font-medium hover:bg-${color}-500/30 transition`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            )}
+            {selectedFeature.title === "AI Assistant" && (
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-purple-400 mb-3">
+                   What's your situation?
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    { type: "danger", label: "I'm in danger", color: "red" },
+                    { type: "followed", label: " Someone is following me", color: "yellow" },
+                    { type: "cab", label: "Unsafe cab ride", color: "blue" },
+                    { type: "night", label: " Traveling at night", color: "purple" },
+                  ].map(({ type, label, color }) => (
+                    <button
+                      key={type}
+                      onClick={() => getEmergencyGuidance(type)}
+                      className={`bg-${color}-500/20 border border-${color}-500 p-4 rounded-xl text-sm font-medium text-left hover:bg-${color}-500/30 transition`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                {guidance && (
+                  <div className="mt-5 bg-[#101b29] border border-purple-500/30 rounded-2xl p-5">
+                    <p className="text-purple-300 font-semibold mb-3 text-sm uppercase tracking-wider">
+                      🛡️ Safety Guidance
+                    </p>
+                    <div className="space-y-2">
+                      {guidance.split("\n").filter(Boolean).map((line, i) => (
+                        <p key={i} className="text-gray-300 text-sm leading-6">
+                          {line}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {guidance && (
+                  <button
+                    onClick={() => setGuidance("")}
+                    className="mt-3 flex items-center gap-2 text-sm text-gray-400 hover:text-white border border-gray-700 hover:border-gray-500 px-4 py-2 rounded-xl transition"
+                  >
+                    <FaEraser size={13} /> Clear Guidance
+                  </button>
+                )}
+                <div className="mt-5 flex items-center justify-between bg-red-500/10 border border-red-500/40 rounded-2xl px-5 py-4">
+                  <div>
+                    <p className="text-red-400 font-semibold text-sm">Immediate Danger?</p>
+                    <p className="text-gray-400 text-xs mt-0.5">Call national emergency now</p>
+                  </div>
+                  <button
+                    onClick={() => window.open("tel:112")}
+                    className="flex items-center gap-2 bg-red-500 hover:bg-red-400 text-white font-bold px-4 py-2 rounded-xl transition text-sm"
+                  >
+                    <FaPhone size={13} /> Call 112
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="mt-8 flex flex-wrap gap-3">
+              {selectedFeature.title !== "AI Assistant" && (
+                <button
+                  onClick={() => handleAction(selectedFeature.title)}
+                  className="bg-green-500 text-black px-5 py-3 rounded-xl font-semibold hover:bg-green-400 transition"
+                >
+                  {selectedFeature.button}
+                </button>
+              )}
+              {selectedFeature.title === "AI Assistant" && (
+                <button
+                  onClick={() => window.open("tel:112")}
+                  className="flex items-center gap-2 bg-red-500 hover:bg-red-400 text-white px-5 py-3 rounded-xl font-semibold transition"
+                >
+                  <FaPhone size={14} /> {selectedFeature.button}
+                </button>
+              )}
               <button
-                onClick={() => handleAction(selectedFeature.title)}
-                className="
-                  bg-green-500 text-black px-5 py-3
-                  rounded-xl font-semibold hover:bg-green-400 transition
-                ">
-                {selectedFeature.button}
+                onClick={closeModal}
+                className="border border-gray-700 px-5 py-3 rounded-xl hover:border-green-500 transition"
+              >
+                Close
               </button>
-              <button onClick={() => {
-    setSelectedFeature(null);
-    setShowPlaces(false);
-  }}
-  className="
-    border border-gray-700 px-5 py-3
-    rounded-xl hover:border-green-500 transition
-  ">
-  Close
-</button>
             </div>
           </div>
         </div>
