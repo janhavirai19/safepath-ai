@@ -18,18 +18,18 @@ type Feature = {
   color: string;
   button: string;
 };
-
 export default function Features() {
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
   const [safetyResult, setSafetyResult] = useState<any>(null);
   const [crowdResult, setCrowdResult] = useState<any>(null);
   const [sosResult, setSosResult] = useState<any>(null);
   const openFeature = (feature: Feature) => {
-    setSelectedFeature(feature);
-    setSafetyResult(null);
-    setCrowdResult(null);
-    setSosResult(null);
-  };
+  setSelectedFeature(feature);
+  setSafetyResult(null);
+  setCrowdResult(null);
+  setSosResult(null);
+  setShowPlaces(false); 
+};
   const handleSafetyScore = () => {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
@@ -97,6 +97,7 @@ export default function Features() {
       () => alert("Please allow location access.")
     );
   };
+const [showPlaces, setShowPlaces] = useState(false);
   const handleAction = (title: string) => {
     switch (title) {
       case "AI Safety Score":
@@ -111,9 +112,9 @@ export default function Features() {
       case "Emergency Contacts":
         window.open("tel:100");
         break;
-      case "Smart Navigation":
-        window.open("https://maps.google.com", "_blank");
-        break;
+     case "Nearby Safe Places":
+  setShowPlaces(true);
+  break;
       default:
         alert(`${title} feature will be integrated with backend APIs.`);
     }
@@ -145,15 +146,15 @@ export default function Features() {
       color: "text-yellow-400",
       button: "View Crowd",
     },
-    {
-      icon: <FaMapMarkedAlt size={35} />,
-      title: "Smart Navigation",
-      desc: "AI suggests alternative safer routes in real-time.",
-      details:
-        "Find the safest and fastest route with live navigation updates.",
-      color: "text-cyan-400",
-      button: "Open Map",
-    },
+ {
+  icon: <FaMapMarkedAlt size={35} />,
+  title: "Nearby Safe Places",
+  desc: "Find nearby police stations, hospitals, petrol pumps and pharmacies instantly.",
+  details:
+    "Locate essential safe places around you during emergencies with one tap access.",
+  color: "text-cyan-400",
+  button: "Find Places",
+},
     {
       icon: <FaRobot size={35} />,
       title: "AI Assistant",
@@ -220,8 +221,14 @@ export default function Features() {
       </div>
       {selectedFeature && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-5">
-          <div className="bg-[#08131f] border border-gray-800 rounded-3xl w-full max-w-lg p-8 relative">
-            <button
+<div
+  className="
+    bg-[#08131f] border border-gray-800 rounded-3xl
+    w-full max-w-xl
+    max-h-[90vh] overflow-y-auto
+    p-5 sm:p-6 md:p-8
+    relative
+  ">            <button
               onClick={() => setSelectedFeature(null)}
               className="absolute right-5 top-5 text-gray-400 hover:text-white"
             >
@@ -260,7 +267,7 @@ export default function Features() {
             {sosResult && selectedFeature.title === "SOS Emergency" && (
               <div className="mt-6 rounded-2xl border border-red-500/40 bg-red-500/10 p-5">
                 <h3 className="text-2xl font-bold text-red-400">
-                  🚨 SOS Activated
+                   SOS Activated
                 </h3>
                 <p className="text-gray-300 mt-2">{sosResult.message}</p>
                 <p className="text-gray-400 mt-2">
@@ -268,14 +275,56 @@ export default function Features() {
                 </p>
               </div>
             )}
+
+{showPlaces &&
+  selectedFeature.title === "Nearby Safe Places" && (
+    <div className="mt-6 grid grid-cols-2 gap-4">
+      <button
+        onClick={() =>
+          window.open(
+            "https://www.google.com/maps/search/police+station+near+me",
+            "_blank"
+          )}
+        className="bg-blue-500/20 border border-blue-500 p-4 rounded-xl"
+      > Police Stations
+      </button>
+      <button
+        onClick={() =>
+          window.open(
+            "https://www.google.com/maps/search/hospital+near+me",
+            "_blank"
+          )}
+        className="bg-red-500/20 border border-red-500 p-4 rounded-xl"
+      > Hospitals
+      </button>
+      <button
+        onClick={() =>
+          window.open(
+            "https://www.google.com/maps/search/petrol+pump+near+me",
+            "_blank"
+          )}
+        className="bg-yellow-500/20 border border-yellow-500 p-4 rounded-xl"
+      >Petrol Pumps
+      </button>
+
+      <button
+        onClick={() =>
+          window.open(
+            "https://www.google.com/maps/search/pharmacy+near+me",
+            "_blank"
+          )
+        }
+        className="bg-green-500/20 border border-green-500 p-4 rounded-xl"
+      > Pharmacies
+      </button>
+    </div>)}
             <div className="mt-8 flex flex-wrap gap-4">
               <button
                 onClick={() => handleAction(selectedFeature.title)}
                 className="
                   bg-green-500 text-black px-5 py-3
                   rounded-xl font-semibold hover:bg-green-400 transition
-                "
-              >
+                ">
                 {selectedFeature.button}
               </button>
               <button
@@ -283,8 +332,7 @@ export default function Features() {
                 className="
                   border border-gray-700 px-5 py-3
                   rounded-xl hover:border-green-500 transition
-                "
-              >
+                ">
                 Close
               </button>
             </div>
