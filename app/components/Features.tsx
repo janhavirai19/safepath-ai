@@ -9,7 +9,6 @@ import {
   FaPhoneAlt,
   FaTimes,
 } from "react-icons/fa";
-
 type Feature = {
   icon: React.ReactNode;
   title: string;
@@ -86,7 +85,7 @@ export default function Features() {
           const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
           window.open(
             `https://wa.me/?text=${encodeURIComponent(
-              `🚨 SOS ALERT!\nI need help.\nMy Location: ${mapLink}`
+              ` SOS ALERT!\nI need help.\nMy Location: ${mapLink}`
             )}`
           );
         } catch (err) {
@@ -275,7 +274,6 @@ const [showPlaces, setShowPlaces] = useState(false);
                 </p>
               </div>
             )}
-
 {showPlaces &&
   selectedFeature.title === "Nearby Safe Places" && (
     <div className="mt-6 grid grid-cols-2 gap-4">
@@ -306,7 +304,6 @@ const [showPlaces, setShowPlaces] = useState(false);
         className="bg-yellow-500/20 border border-yellow-500 p-4 rounded-xl"
       >Petrol Pumps
       </button>
-
       <button
         onClick={() =>
           window.open(
@@ -327,14 +324,16 @@ const [showPlaces, setShowPlaces] = useState(false);
                 ">
                 {selectedFeature.button}
               </button>
-              <button
-                onClick={() => setSelectedFeature(null)}
-                className="
-                  border border-gray-700 px-5 py-3
-                  rounded-xl hover:border-green-500 transition
-                ">
-                Close
-              </button>
+              <button onClick={() => {
+    setSelectedFeature(null);
+    setShowPlaces(false);
+  }}
+  className="
+    border border-gray-700 px-5 py-3
+    rounded-xl hover:border-green-500 transition
+  ">
+  Close
+</button>
             </div>
           </div>
         </div>
