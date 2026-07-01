@@ -28,7 +28,7 @@ export default function About() {
     return () => { document.body.style.overflow = ""; };
   }, [showModal]);
   useEffect(() => {
-    const handler = (e) => { if (e.key === "Escape") setShowModal(false); };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setShowModal(false); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
@@ -39,6 +39,7 @@ export default function About() {
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
         <div className="relative flex justify-center">
+ 
           <div className="absolute w-64 h-64 sm:w-80 sm:h-80 bg-green-500/20 blur-[130px] rounded-full" />
           <div className="relative overflow-hidden rounded-[28px] sm:rounded-[36px] border border-green-500/20 shadow-[0_0_50px_rgba(0,255,136,.18)]">
             <Image
@@ -46,6 +47,8 @@ export default function About() {
               alt="Confident woman standing with laptop"
               width={600}
               height={850}
+              loading="eager"
+              priority
               className="
                 w-[260px] h-[380px]
                 sm:w-[380px] sm:h-[520px]
@@ -87,6 +90,7 @@ export default function About() {
             AI and real-time data to help users choose the safest routes and
             stay protected in any situation.
           </p>
+
           <p className="text-gray-400 mt-4 sm:mt-6 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8">
             Whether you're traveling late night or in unfamiliar places,
             SafePath AI gives instant safety insights and smart alerts to keep
@@ -140,8 +144,7 @@ export default function About() {
               p-5 sm:p-8
               shadow-[0_0_60px_rgba(0,255,136,.12)]
               max-h-[92dvh] overflow-y-auto
-            "
-          >
+            "  >
             <button
               onClick={() => setShowModal(false)}
               aria-label="Close modal"
@@ -211,8 +214,7 @@ export default function About() {
                   hover:bg-white/5 hover:text-white
                   active:scale-95 transition
                 "
-              >
-                Maybe later
+              > Maybe later
               </button>
             </div>
           </div>
