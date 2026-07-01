@@ -22,28 +22,35 @@ export default function Footer() {
               safer journey.
             </p>
             <div className="flex gap-4 mt-6">
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-[#111827] border border-gray-700 flex items-center justify-center text-gray-300 hover:text-emerald-400 hover:border-emerald-500 transition"
-              >
-                <FaGithub />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-[#111827] border border-gray-700 flex items-center justify-center text-gray-300 hover:text-emerald-400 hover:border-emerald-500 transition"
-              >
-                <FaLinkedin />
-              </a>
 
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-[#111827] border border-gray-700 flex items-center justify-center text-gray-300 hover:text-emerald-400 hover:border-emerald-500 transition"
-              >
-                <FaInstagram />
-              </a>
-            </div>
-          </div>
-          <div>
+  <a
+    href="https://github.com/janhavirai19"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="GitHub"
+    className="w-10 h-10 rounded-full bg-[#111827] border border-gray-700 flex items-center justify-center text-gray-300 hover:text-emerald-400 hover:border-emerald-500 hover:scale-110 transition-all duration-300"
+  >
+    <FaGithub />
+  </a>
+  <a
+    href="https://www.linkedin.com/in/janhavi-rai-640215270"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="LinkedIn"
+    className="w-10 h-10 rounded-full bg-[#111827] border border-gray-700 flex items-center justify-center text-gray-300 hover:text-emerald-400 hover:border-emerald-500 hover:scale-110 transition-all duration-300"
+  >
+    <FaLinkedin />
+  </a>
+  <a
+    href="https://www.instagram.com/tech.janhavi_/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Instagram"
+    className="w-10 h-10 rounded-full bg-[#111827] border border-gray-700 flex items-center justify-center text-gray-300 hover:text-pink-400 hover:border-pink-500 hover:scale-110 transition-all duration-300"
+  >
+    <FaInstagram />
+  </a>
+</div> </div> <div>
             <h3 className="text-white font-semibold text-lg mb-5">
               Quick Links
             </h3>
