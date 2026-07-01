@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 export default function Dashboard() {
+  const router = useRouter();
   const [location, setLocation] = useState(null);
   const [score, setScore] = useState(0);
 
@@ -49,7 +51,6 @@ export default function Dashboard() {
             lng,
             name,
           });
-
           setScore(calculateSafetyScore());
           return;
         }
@@ -57,15 +58,12 @@ export default function Dashboard() {
           async (pos) => {
             const lat = pos.coords.latitude;
             const lng = pos.coords.longitude;
-
             const name = await getLocationName(lat, lng);
-
             setLocation({
               lat,
               lng,
               name,
             });
-
             setScore(calculateSafetyScore());
           },
           (err) => {
@@ -76,7 +74,6 @@ export default function Dashboard() {
         console.log("Dashboard Error:", err);
       }
     };
-
     fetchLocation();
   }, []);
   useEffect(() => {
@@ -92,7 +89,6 @@ export default function Dashboard() {
     if (!name.trim() || !phone.trim()) {
       return;
     }
-
     const newContacts = [
       ...emergencyContacts,
       {
@@ -101,40 +97,58 @@ export default function Dashboard() {
         phone,
       },
     ];
-
     setEmergencyContacts(newContacts);
-
     localStorage.setItem(
       "emergencyContacts",
       JSON.stringify(newContacts)
     );
-
     setName("");
     setPhone("");
   };
-
   const deleteContact = (id) => {
     const updated = emergencyContacts.filter(
       (c) => c.id !== id
     );
-
     setEmergencyContacts(updated);
-
     localStorage.setItem(
       "emergencyContacts",
       JSON.stringify(updated)
     );
   };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#071018] via-[#0f172a] to-[#081018] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
+<div className="mb-6">
+  <button
+    onClick={() => {
+      if (window.history.length > 1) {
+        router.back();
+      } else {
+        router.push("/");
+      } }}
+    className="flex items-center gap-2 bg-[#111827] border border-emerald-500 hover:bg-emerald-500 text-white px-5 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg w-fit"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-5 h-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    > <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15 19l-7-7 7-7"
+      />
+    </svg>
+    Back
+  </button>
+</div>
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
           <div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-emerald-400">
               🛡️ SafePath AI Dashboard
             </h1>
-
             <p className="text-gray-400 mt-3 text-sm sm:text-base">
               AI-powered real-time safety monitoring and emergency
               protection.
