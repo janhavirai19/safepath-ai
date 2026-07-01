@@ -62,11 +62,9 @@ export default function SafetyMode() {
       }
     );
   };
-
   return (
     <div className="min-h-screen bg-[#081018] flex items-center justify-center px-3 xs:px-4 py-6 sm:py-10">
       <div className="w-full max-w-4xl rounded-2xl sm:rounded-[32px] border border-[#1f2937] bg-[#0f172a]/95 p-4 xs:p-6 sm:p-8 md:p-12 text-center shadow-2xl">
-        {/* Back button */}
         <div className="flex justify-start mb-5 sm:mb-6">
           <button
             onClick={() => {
