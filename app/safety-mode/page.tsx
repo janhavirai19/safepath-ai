@@ -95,7 +95,7 @@ export default function SafetyMode() {
 
     <span>Back</span>
   </button>
-</div>  🛡️
+</div>  
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-emerald-400 mb-5 tracking-tight">
           Suraksha Mode

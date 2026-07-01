@@ -147,7 +147,7 @@ export default function Dashboard() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
           <div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-emerald-400">
-              🛡️ SafePath AI Dashboard
+               SafePath AI Dashboard
             </h1>
             <p className="text-gray-400 mt-3 text-sm sm:text-base">
               AI-powered real-time safety monitoring and emergency
