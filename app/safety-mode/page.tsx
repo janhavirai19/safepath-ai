@@ -67,7 +67,35 @@ export default function SafetyMode() {
     <div className="min-h-screen bg-[#081018] flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-4xl rounded-[32px] border border-[#1f2937] bg-[#0f172a]/95 p-6 sm:p-8 md:p-12 text-center shadow-2xl">
         <div className="text-5xl sm:text-6xl md:text-7xl mb-6">
-          🛡️
+<div className="flex justify-start mb-6">
+  <button
+    onClick={() => {
+      if (window.history.length > 1) {
+        router.back();
+      } else {
+        router.push("/");
+      }
+    }}
+    className="group inline-flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-[#111827]/80 backdrop-blur-md px-5 py-3 text-sm sm:text-base font-medium text-white shadow-lg transition-all duration-300 hover:border-emerald-400 hover:bg-emerald-500 hover:shadow-emerald-500/30 hover:-translate-y-1 active:scale-95"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      className="h-5 w-5 transition-transform duration-300 group-hover:-translate-x-1"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15 19l-7-7 7-7"
+      />
+    </svg>
+
+    <span>Back</span>
+  </button>
+</div>  🛡️
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-emerald-400 mb-5 tracking-tight">
           Suraksha Mode
